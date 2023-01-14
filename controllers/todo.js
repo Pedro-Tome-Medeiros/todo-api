@@ -56,7 +56,7 @@ exports.updateTodo = (req, res, next) => {
 
   return Todo.findOneAndUpdate({ _id }, { ...data, 'timestamps.modifiedOn': Date.now() }, { new: true })
     .then((result) => {
-      return res.status(2001).json(result);
+      return res.status(200).json(result);
     })
     .catch((error) => {
       return res.status(500).json({

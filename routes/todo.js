@@ -10,9 +10,11 @@ router.get('/', TodoController.getTodos);
 
 router.get('/:id', TodoController.getTodo);
 
+router.put('/:id', TodoController.updateTodo);
+
 router.patch('/:id/completed', TodoController.completeTodo);
 
-router.patch('/:id/notCompleted', TodoController.notCompleteTodo);
+router.patch('/:id/not-completed', TodoController.notCompleteTodo);
 
 router.delete('/:id', TodoController.deleteTodo);
 

@@ -51,7 +51,7 @@ app.use('/api/info', (req, res, next) => {
   res.status(200).json({
     name: 'TODO Api',
     version: '1.0',
-    description: 'RESTful API Designed in Node.js for TODO application.',
+    description: 'RESTful API for TODO application.',
     methodsAllowed: 'GET, POST, PUT, PATCH, DELETE',
     authType: 'None'
   });
