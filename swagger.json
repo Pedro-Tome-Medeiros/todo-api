@@ -1,0 +1,14 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "TODO API",
+        "description": "RESTful API for TODO application",
+        "version": "1.0"
+    },
+    "host": "localhost:8001",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {}
+}
