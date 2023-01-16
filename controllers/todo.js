@@ -73,7 +73,7 @@ exports.completeTodo = (req, res, next) => {
   return Todo.findOneAndUpdate(
     { _id },
     {
-      isCompleted: true,
+      done: true,
       'timestamps.modifiedOn': Date.now(),
       'timestamps.completedOn': Date.now()
     },
@@ -99,7 +99,7 @@ exports.notCompleteTodo = (req, res, next) => {
   return Todo.findOneAndUpdate(
     { _id },
     {
-      isCompleted: false,
+      done: false,
       'timestamps.modifiedOn': Date.now(),
       'timestamps.completedOn': Date.now()
     },

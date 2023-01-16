@@ -1,30 +1,19 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const initDB = require('./initDB');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-
-// Import Credentials
-const mongo = require('./credentials/mongo');
 
 // Imports for Routes
 const todoRoutes = require('./routes/todo');
 
 const app = express();
 
-mongoose
-  .connect(mongo.localConnString, {
-    useNewUrlParser: true
-  })
-  .then(() => {
-    console.log('Connected to database!');
-  })
-  .catch((error) => {
-    console.log(error);
-    console.log('Connection failed!');
-  });
+const PORT = process.env.NODE_DOCKER_PORT || 8080;
 
 // Use body-parser to parse incoming reuests
 app.use(bodyParser.json());
@@ -57,8 +46,10 @@ app.use('/api/info', (req, res, next) => {
   });
 });
 
-app.listen(8001, () => {
-  console.log('server listening on port 8001');
-});
-
-// https://github.com/toslimarif/todo-api
+initDB()
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}.`);
+    })
+  )
+  .catch((error) => console.log('Connection failed ', error));
