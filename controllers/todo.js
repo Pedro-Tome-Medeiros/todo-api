@@ -34,7 +34,7 @@ exports.getTodos = (req, res, next) => {
 };
 
 exports.getTodo = (req, res, next) => {
-  const id_ = req.params.id;
+  const _id = req.params.id;
 
   return Todo.findOne({ _id })
     .then((value) => {

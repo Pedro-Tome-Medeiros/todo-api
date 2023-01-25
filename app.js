@@ -6,7 +6,7 @@ const cors = require('cors');
 const initDB = require('./initDB');
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 // Imports for Routes
 const todoRoutes = require('./routes/todo');
@@ -14,6 +14,24 @@ const todoRoutes = require('./routes/todo');
 const app = express();
 
 const PORT = process.env.NODE_DOCKER_PORT || 8080;
+
+const swaggerDefinition = {
+  info: {
+    title: 'TODO Api',
+    version: '1.0.0',
+    description: 'RESTful API for TODO application'
+  },
+  host: `localhost:${PORT}`,
+  basePath: '/api'
+};
+
+// Options for the swagger docs
+const options = {
+  swaggerDefinition,
+  apis: ['./routes/*.js']
+};
+
+const swaggerSpec = swaggerJSDoc(options);
 
 // Use body-parser to parse incoming reuests
 app.use(bodyParser.json());
@@ -32,8 +50,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use('/api/todo', todoRoutes);
 
 app.use('/api/info', (req, res, next) => {
@@ -45,6 +61,8 @@ app.use('/api/info', (req, res, next) => {
     authType: 'None'
   });
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 initDB()
   .then(() =>

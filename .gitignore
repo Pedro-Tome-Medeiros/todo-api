@@ -129,3 +129,4 @@ dist
 data/
 
 .vscode
+.DS_Store
